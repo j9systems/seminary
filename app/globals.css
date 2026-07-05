@@ -1,26 +1,107 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #f6f6f3;
+}
+* {
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Seminary Hub design system (ported from the prototype). Applied on the app
+   root: <div class="sem light|dark">. */
+.sem {
+  --rad: 16px;
+  --amb: oklch(0.78 0.14 75);
+}
+.sem.light {
+  --bg: #f6f6f3;
+  --card: #ffffff;
+  --ink: #191921;
+  --mut: #70707d;
+  --line: #e7e7e1;
+  --acc: #5a50e6;
+  --soft: color-mix(in oklab, #5a50e6 7%, #ffffff);
+  --ok: #0e8f6e;
+  --bad: #c93a3a;
+  --hl: rgba(247, 201, 72, 0.45);
+}
+.sem.dark {
+  --bg: #101014;
+  --card: #1b1b22;
+  --ink: #f1f1f4;
+  --mut: #9c9ca8;
+  --line: #2b2b34;
+  --acc: #8b83f2;
+  --soft: color-mix(in oklab, #8b83f2 14%, #1b1b22);
+  --ok: #3dbe97;
+  --bad: #e06565;
+  --hl: rgba(247, 201, 72, 0.28);
+}
+.sem ::selection {
+  background: var(--soft);
+}
+.sem input,
+.sem textarea,
+.sem select,
+.sem button {
+  font-family: inherit;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Rich-text (lesson outline) styling */
+[data-rte] {
+  outline: none;
+}
+[data-rte] p {
+  margin: 6px 0;
+}
+[data-rte] ul {
+  margin: 8px 0;
+  padding-left: 22px;
+}
+[data-rte] blockquote {
+  border-left: 3px solid var(--acc);
+  margin: 10px 0;
+  padding: 6px 14px;
+  color: var(--mut);
+  font-style: italic;
+}
+[data-rte] mark {
+  background: var(--hl);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes livepulse {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+[data-hscroll] {
+  scrollbar-width: none;
+}
+[data-hscroll]::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hover affordance replacing the prototype's style-hover attribute */
+[data-hover-acc]:hover {
+  border-color: var(--acc) !important;
 }
