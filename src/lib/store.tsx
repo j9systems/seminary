@@ -136,6 +136,25 @@ export function SeminaryProvider({ children }: { children: React.ReactNode }) {
     setReady(true);
   }, []);
 
+  // Keep the page (html/body) background + iOS status-bar color in sync with
+  // the user's chosen theme, so the safe-area regions don't flash white.
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    root.classList.toggle("theme-dark", theme === "dark");
+    root.classList.toggle("theme-light", theme === "light");
+    const bg = theme === "dark" ? "#101014" : "#F6F6F3";
+    root.style.backgroundColor = bg;
+    if (document.body) document.body.style.backgroundColor = bg;
+    let meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.setAttribute("name", "theme-color");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", bg);
+  }, [theme]);
+
   const persist = useCallback(
     (next: Data, t: Theme, r: Role) => {
       try {

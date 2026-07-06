@@ -380,7 +380,7 @@ export default function SeminaryApp() {
         </div>
       )}
 
-      <div style={cssx("max-width:1160px;margin:0 auto;display:flex;align-items:flex-start;gap:26px;padding:20px 20px 40px")}>
+      <div style={cssx("max-width:1160px;margin:0 auto;display:flex;align-items:flex-start;gap:26px;padding:calc(20px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) 40px calc(20px + env(safe-area-inset-left))")}>
         {/* Desktop sidebar */}
         {!isMobile && (
           <div style={cssx("width:186px;flex-shrink:0;position:sticky;top:76px;display:flex;flex-direction:column;gap:5px")}>
@@ -401,7 +401,7 @@ export default function SeminaryApp() {
           {screen === "student" && renderStudentDetail()}
           {screen === "makeup" && renderMakeup()}
           {screen === "anns" && renderAnns()}
-          {isMobile && <div style={{ height: 84 }} />}
+          {isMobile && <div style={{ height: "calc(84px + env(safe-area-inset-bottom))" }} />}
         </div>
       </div>
 
